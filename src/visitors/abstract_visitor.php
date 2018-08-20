@@ -181,11 +181,10 @@ use Aqua\Statement;
 			}
 
 			$attributes = [];
+			$projection;
 			$projections = [];
 
 			foreach ($this->_statement->projections as $attribute) {
-
-				$projection = "";
 
 				if (is_a($attribute, SqlString::class)) {
 
@@ -200,11 +199,11 @@ use Aqua\Statement;
 					}
 
 				}
-				else if (is_a($attribute, Attribute::class)) {
-					$projection = $this->sanitize($this->getTableName($attribute->table)).".".$this->sanitize($attribute->name);
-				}
 				else if (is_a($attribute->name, NamedFunction::class)) {
 					$projection = $this->_compileFunction($attribute->name);
+				}
+				else if (is_a($attribute, Attribute::class)) {
+					$projection = $this->sanitize($this->getTableName($attribute->table)).".".$this->sanitize($attribute->name);
 				}
 
 				if (is_a($attribute, SqlString::class)) {

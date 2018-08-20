@@ -76,6 +76,13 @@ use Exception;
 
 		}
 
+		function unproject() {
+
+			$this->_projections = [];
+			return $this;
+
+		}
+
 		function join($table, $type = "InnerJoin") {
 
 			if (empty($table)) {

@@ -99,7 +99,7 @@ use Aqua\Where;
 			}
 			else if ($node->class == "SqlString") {
 
-				$query = $node->rawQuery;
+				$query = "(".$node->rawQuery.")";
 				if (!empty($node->params)) {
 					$this->_params = array_merge($this->_params, $node->params);
 				}
