@@ -78,7 +78,7 @@ use Exception;
 
 		}
 
-		function where($clause) {
+		function where($clause, $params = []) {
 
 		}
 
