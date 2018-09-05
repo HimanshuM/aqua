@@ -30,6 +30,10 @@ namespace Aqua;
 
 		}
 
+		function empty() {
+			return is_null($this->_root);
+		}
+
 	}
 
 ?>
