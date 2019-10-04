@@ -4,6 +4,7 @@ namespace Aqua\Visitors;
 
 use Aqua\Accessor;
 use Aqua\Node;
+use Aqua\SqlString;
 use Aqua\Where;
 
 	class NodeCompiler {
@@ -75,6 +76,9 @@ use Aqua\Where;
 					$query .= "($rhs)";
 					$this->_params = array_merge($this->_params, $node->right);
 
+				}
+				else if (is_a($node->right, SqlString::class)) {
+					$query .= $node->right->rawQuery;
 				}
 				else {
 

@@ -417,8 +417,15 @@ use Aqua\Statement;
 			foreach ($this->_statement->values as $attribute) {
 
 				$projections[] = $this->sanitize($attribute[0]->name);
-				$this->_params[] = $attribute[1];
-				$values[] = "?";
+				if (is_a($attribute[1], SqlString::class)) {
+					$values[] = $attribute[1]->rawQuery;
+				}
+				else {
+
+					$this->_params[] = $attribute[1];
+					$values[] = "?";
+
+				}
 
 			}
 
@@ -470,6 +477,9 @@ use Aqua\Statement;
 				$rhs = $update[1];
 				if (is_a($rhs, "Aqua\\Attribute")) {
 					$query .= $this->sanitize($this->getTableName($rhs->table)).".".$this->sanitize($rhs->name);
+				}
+				elseif (is_a($rhs, SqlString::class)) {
+					$query .= $rhs->rawQuery;
 				}
 				else {
 
