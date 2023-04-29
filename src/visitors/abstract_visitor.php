@@ -38,19 +38,19 @@ use Aqua\Statement;
 
 			$this->initialize($statement);
 
-			if (is_a($statement, "Aqua\\SelectStatement")) {
+			if (is_a($statement, SelectStatement::class)) {
 				$this->_compileSelect();
 			}
-			else if (is_a($statement, "Aqua\\InsertStatement")) {
+			else if (is_a($statement, InsertStatement::class)) {
 				$this->_compileInsert();
 			}
-			else if (is_a($statement, "Aqua\\UpdateStatement")) {
+			else if (is_a($statement, UpdateStatement::class)) {
 				$this->_compileUpdate();
 			}
-			else if (is_a($statement, "Aqua\\DeleteStatement")) {
+			else if (is_a($statement, DeleteStatement::class)) {
 				$this->_compileDelete();
 			}
-			else if (is_a($statement, "Aqua\\DescribeStatement")) {
+			else if (is_a($statement, DescribeStatement::class)) {
 				$this->_compileDescribe();
 			}
 
@@ -246,10 +246,10 @@ use Aqua\Statement;
 
 				$query .= $this->_class::Joins[$this->_getClass(get_class($join))]." ";
 
-				if (is_a($join->with, "Aqua\\Table")) {
+				if (is_a($join->with, Table::class)) {
 					$query .= $this->sanitize($join->with->_name);
 				}
-				else if (is_a($join->with, "Aqua\\Statement")) {
+				else if (is_a($join->with, Statement::class)) {
 
 					$clone = clone $this;
 					$join->with->toSql($clone);
@@ -475,7 +475,7 @@ use Aqua\Statement;
 				$query = $this->sanitize($this->getTableName($lhs->table)).".".$this->sanitize($lhs->name)." = ";
 
 				$rhs = $update[1];
-				if (is_a($rhs, "Aqua\\Attribute")) {
+				if (is_a($rhs, Attribute::class)) {
 					$query .= $this->sanitize($this->getTableName($rhs->table)).".".$this->sanitize($rhs->name);
 				}
 				elseif (is_a($rhs, SqlString::class)) {
